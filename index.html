@@ -1,3 +1,4 @@
+<!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
+    <!-- Loading Screen -->
     <div id="page-loader" class="loading-overlay">
         <div class="spinner"></div>
     </div>
+
     <!-- Navigation -->
-    <header>
+    <header id="navbar">
         <nav>
             <div class="logo">
                 <img src="assets/ajira-logo.png" alt="Ajira Club Logo">
@@ -25,87 +27,58 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#training">Training & Mentorship</a></li>
+                <li><a href="#training">Training</a></li>
                 <li><a href="#events">Events</a></li>
-                <li><a href="#notice-board">Notice Board</a></li>
+                <li><a href="#notice-board">Notices</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-buttons">
-                <a href="#register" class="btn btn-primary">Join Now</a>
+                <a href="register.html" class="btn btn-primary">Join Now</a>
                 <button id="dark-mode-toggle">🌙</button>
+                <button id="menu-toggle" class="menu-icon">☰</button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section with Animation -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h1>Welcome to Ajira Club</h1>
+        <div class="hero-content">
+            <h1 class="animated-text kenya-text-animate">Welcome to <span>Ajira Club</span></h1>
             <p>Empowering students with digital skills for online work opportunities.</p>
-            <a href="#training" class="btn">Explore Training</a>
-            <div class="hero-stats">
-                <div class="stat">
-                    <h3>1000+</h3>
-                    <p>Members</p>
-                </div>
-                <div class="stat">
-                    <h3>50+</h3>
-                    <p>Events</p>
-                </div>
-                <div class="stat">
-                    <h3>5+</h3>
-                    <p>Job Categories</p>
-                </div>
-            </div>
+            <p class="hero-subheading">Launch your digital career with our guided programs.</p>
+            <a href="#training" class="btn btn-kenya">Explore Training</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
+    <section id="about" class="section" data-aos="fade-in">
         <h2>About Us</h2>
-        <p>Ajira Club is a digital initiative aimed at equipping students with online work skills, mentorship, and networking opportunities.</p>
+        <p>Ajira Club equips students with digital skills, mentorship, and networking opportunities.</p>
+        <img src="assets/about-illustration.png" alt="Ajira Illustration" style="max-width:300px;">
     </section>
 
     <!-- Training & Mentorship -->
-    <section id="training" class="section">
+    <section id="training" class="section" data-aos="fade-in">
         <h2>Training & Mentorship</h2>
         <div class="training-grid">
-            <div class="training-item">
+            <div class="training-item bounce-icon">
                 <i class="fas fa-laptop-code"></i>
                 <h3>Freelancing</h3>
                 <p>Learn how to secure freelance jobs online.</p>
             </div>
-            <div class="training-item">
+            <div class="training-item bounce-icon">
                 <i class="fas fa-chart-line"></i>
                 <h3>Digital Marketing</h3>
                 <p>Master the art of online marketing and branding.</p>
             </div>
-            <div class="training-item">
+            <div class="training-item bounce-icon">
                 <i class="fas fa-pencil-alt"></i>
                 <h3>Content Writing</h3>
                 <p>Enhance your writing skills for online platforms.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Registration Form Section -->
-    <section id="register" class="section" data-aos="fade-up" data-aos-duration="1000">
-        <h2>Become a Member</h2>
-        <form class="registration-form" onsubmit="return validateForm(this)">
-            <div class="form-group">
-                <input type="text" name="fullName" placeholder="Full Names" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="idNumber" placeholder="ID Number" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" name="phone" placeholder="Phone Number" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Register Now</button>
-        </form>
     </section>
 
     <!-- Events -->
@@ -115,29 +88,41 @@
             <h3>Ajira Digital Bootcamp</h3>
             <p>Join us for an exclusive digital skills training session. Date: 15th March 2025.</p>
         </div>
-        <div class="event">
-            <h3>Networking Session</h3>
-            <p>Connect with mentors and professionals in the online workspace. Date: 5th April 2025.</p>
-        </div>
     </section>
 
     <!-- Notice Board -->
     <section id="notice-board" class="section">
         <h2>Notice Board</h2>
-        <div id="notices" style="max-height: 300px; overflow-y: auto;">
+        <div id="notices">
             <p>Loading latest announcements...</p>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-grid">
-            <div class="faq-item" data-aos="fade-up">
-                <h3>What are the requirements to be trained?</h3>
-                <p>You need to be in Kenya, create an account on the Ajira portal, and have access to the internet and a computer.</p>
-            </div>
-            <!-- Add more FAQ items -->
+    <!-- Member Registration Section -->
+    <section id="register" class="section form-animated">
+        <h2>Join Ajira Club</h2>
+        <form id="registration-form" class="registration-form">
+            <input type="text" id="full-name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="text" id="id-number" placeholder="ID Number" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <p id="verification-message"></p>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery-home" class="section kenyan-bg">
+        <h2>Featured Gallery</h2>
+        <div class="gallery-container">
+            <a href="assets/gallery1.jpg" class="lightbox">
+                <img src="assets/gallery1.jpg" alt="Sample Image 1">
+            </a>
+            <a href="assets/video1.mp4" class="lightbox">
+                <video>
+                    <source src="assets/video1.mp4" type="video/mp4">
+                </video>
+            </a>
         </div>
     </section>
 
@@ -145,17 +130,11 @@
     <section id="contact" class="section">
         <h2>Contact Us</h2>
         <p>Email: <a href="mailto:ajira@ict.go.ke">ajira@ict.go.ke</a></p>
-        <p>Website: <a href="https://www.ajiradigital.go.ke/clubs" target="_blank">Ajira Digital</a></p>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Ajira Club. The Future Works Online.</p>
     </footer>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
 </body>
 </html>

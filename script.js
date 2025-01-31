@@ -1,3 +1,4 @@
+/*script.js */
 // Ensure JavaScript runs after the document loads
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Website Loaded Successfully!");
@@ -125,23 +126,44 @@ function showToast(message, duration = 3000) {
     }, duration);
 }
 
-// Form Validation
-function validateForm(formElement) {
-    const inputs = formElement.querySelectorAll('input[required]');
+// Enhanced Form Validation
+function validateForm(form) {
     let isValid = true;
-
-    inputs.forEach(input => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    form.querySelectorAll('input').forEach(input => {
+        input.classList.remove('error');
         if (!input.value.trim()) {
+            showInputError(input, 'This field is required');
             isValid = false;
-            input.classList.add('error');
-            showToast(`Please fill in ${input.name}`);
-        } else {
-            input.classList.remove('error');
+        }
+        if (input.type === 'email' && !emailRegex.test(input.value)) {
+            showInputError(input, 'Invalid email format');
+            isValid = false;
         }
     });
-
     return isValid;
 }
+
+function showInputError(input, message) {
+    const errorElement = input.nextElementSibling || document.createElement('small');
+    errorElement.className = 'error-message';
+    errorElement.textContent = message;
+    input.classList.add('error');
+    input.after(errorElement);
+}
+
+// Updated Dark Mode Toggle
+function toggleDarkMode() {
+    document.documentElement.setAttribute('data-theme',
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+    );
+    localStorage.setItem('theme', document.documentElement.getAttribute('data-theme'));
+}
+
+// Initialize dark mode from localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
 
 // Dark Mode Toggle
 const darkModeToggle = document.createElement('button');
@@ -160,3 +182,116 @@ if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark-mode');
     darkModeToggle.innerHTML = '☀️';
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registration-form");
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const verificationCode = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit code
+
+        // Store the code temporarily (could be stored in a database later)
+        localStorage.setItem("verificationCode", verificationCode);
+        localStorage.setItem("pendingEmail", email);
+
+        // Send the email (using a mock API for now)
+        await sendVerificationEmail(email, verificationCode);
+    });
+});
+
+// Simulated Email Sending Function (Replace with backend API)
+async function sendVerificationEmail(email, code) {
+    alert(`Verification code sent to ${email}: ${code}`);
+    
+    // Show verification prompt
+    setTimeout(() => {
+        let userCode = prompt("Enter the 6-digit verification code sent to your email:");
+        validateVerificationCode(userCode);
+    }, 1000);
+}
+
+// Validate the verification code
+function validateVerificationCode(userCode) {
+    let storedCode = localStorage.getItem("verificationCode");
+    let pendingEmail = localStorage.getItem("pendingEmail");
+
+    if (userCode == storedCode) {
+        saveMemberData(pendingEmail);
+        alert("Email verified! Registration successful.");
+        localStorage.removeItem("verificationCode");
+        localStorage.removeItem("pendingEmail");
+    } else {
+        alert("Invalid verification code. Please try again.");
+    }
+}
+
+// Save user data after verification (local JSON storage)
+function saveMemberData(email) {
+    let members = JSON.parse(localStorage.getItem("members")) || [];
+    members.push({ email });
+    localStorage.setItem("members", JSON.stringify(members));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+    });
+});
+
+// Highlight active nav link on scroll
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let current = '';
+
+    sections.forEach(sec => {
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 150;
+        const height = sec.offsetHeight;
+        if (top >= offset && top < offset + height) {
+            current = sec.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active-link');
+        if (link.getAttribute('href').includes(current)) {
+            link.classList.add('active-link');
+        }
+    });
+});
+
+// Simple Lightbox Initialization (no external library used)
+document.querySelectorAll('.lightbox').forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Lightbox placeholder: open media in a modal here.');
+    });
+});
+
+// Toggle “header-fade” based on scroll position
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('header-fade');
+    } else {
+        header.classList.remove('header-fade');
+    }
+});
+
+// Track scroll direction and toggle “header-hidden”
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > lastScrollTop) {
+        header.classList.add('header-hidden');
+    } else {
+        header.classList.remove('header-hidden');
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+});
