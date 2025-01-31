@@ -1,297 +1,188 @@
-/*script.js */
-// Ensure JavaScript runs after the document loads
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Website Loaded Successfully!");
-
-    // Mobile Menu Toggle
-    const menuToggle = document.querySelector("#menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    menuToggle.addEventListener("click", function () {
-        navLinks.classList.toggle("active");
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
     });
 
-    // Dynamic Notice Board Data (This can be fetched from a backend in the future)
-    const notices = [
-        "📢 New Ajira Digital training starts this Monday. Register Now!",
-        "📅 Upcoming Webinar: ‘Freelancing 101’ on Friday at 3 PM. Join via Zoom!",
-        "🚀 Exciting Job Opportunity: Remote Digital Marketing Intern – Apply Today!",
-        "💡 Weekly Tip: Improve your skills by practicing on online platforms like Upwork & Fiverr!"
+    // Load dynamic content
+    loadEvents();
+    loadTraining();
+    loadPartners();
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('mainHeader');
+        if (window.scrollY > 100) {
+            header.classList.remove('transparent-header');
+            header.style.background = 'rgba(0, 122, 61, 0.95)';
+        } else {
+            header.classList.add('transparent-header');
+            header.style.background = 'rgba(0, 122, 61, 0.8)';
+        }
+    });
+
+    // Lightbox Functionality
+    const lightbox = document.getElementById('kenyaLightbox');
+    const closeBtn = document.querySelector('.close-btn');
+    
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', e => {
+            e.preventDefault();
+            const mediaSrc = item.href;
+            const mediaType = item.dataset.type;
+            showLightbox(mediaSrc, mediaType);
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+});
+
+// Toggle header & to top button
+let lastScrollTop = 0;
+const header = document.querySelector('.kenyan-nav');
+const toTopBtn = document.getElementById('toTopBtn');
+
+window.addEventListener('scroll', () => {
+    const st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop) {
+        header.style.top = '-80px'; // hide header
+    } else {
+        header.style.top = '0'; // show header
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+
+    toTopBtn.style.display = st > 200 ? 'block' : 'none';
+});
+
+// Scroll to top
+toTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function loadEvents() {
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    const calendarGrid = document.getElementById('eventCalendar');
+    
+    calendarGrid.innerHTML = events.map(event => `
+        <div class="event-card">
+            <h3>${event.name}</h3>
+            <p>📅 ${new Date(event.date).toLocaleDateString()}</p>
+            <button class="rsvp-btn" onclick="handleRSVP('${event.name}')">
+                RSVP Now
+            </button>
+        </div>
+    `).join('');
+}
+
+// Update training cards to use images & link
+function loadTraining() {
+    const trainingContainer = document.getElementById('trainingContainer');
+    const trainingData = [
+        {
+            title: 'Freelancing',
+            image: 'assets/training/freelancing.jpg',
+            link: 'freelancing.html'
+        },
+        {
+            title: 'Digital Marketing',
+            image: 'assets/training/marketing.jpg',
+            link: 'marketing.html'
+        },
+        {
+            title: 'Content Writing',
+            image: 'assets/training/content-writing.jpg',
+            link: 'content-writing.html'
+        },
+        {
+            title: 'Data Management',
+            image: 'assets/training/data-management.jpg',
+            link: 'data-management.html'
+        }
     ];
 
-    // Display Notices Dynamically
-    function updateNotices() {
-        const noticeBoard = document.querySelector("#notices");
-        noticeBoard.innerHTML = ""; // Clear existing notices
+    trainingContainer.innerHTML = trainingData.map(item => `
+        <a href="${item.link}" class="training-card">
+            <img src="${item.image}" alt="${item.title}">
+            <h3>${item.title}</h3>
+            <p>Master the skills for online ${item.title.toLowerCase()} work</p>
+        </a>
+    `).join('');
+}
 
-        notices.forEach((notice, index) => {
-            let noticeItem = document.createElement("div");
-            noticeItem.className = "event";
-            noticeItem.innerHTML = `<p>${notice}</p>`;
-            noticeBoard.appendChild(noticeItem);
-        });
-    }
-
-    // Update Notices on Page Load
-    updateNotices();
-
-    // Smooth Scrolling Effect for Menu Links
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", function (e) {
-            if (this.hash !== "") {
-                e.preventDefault();
-                let hash = this.hash;
-                document.querySelector(hash).scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
-        });
-    });
-
-    // Auto-update Notice Board Every Week (Simulated)
-    setInterval(() => {
-        console.log("Weekly Notice Board Update Triggered!");
-        updateNotices();
-    }, 7 * 24 * 60 * 60 * 1000); // Every 7 days
-
-    // Lazy Loading Images
-    const images = document.querySelectorAll('img[data-src]');
+function loadPartners() {
+    const partners = ['mastercard', 'emobilis', 'kepsa'];
+    const partnersContainer = document.getElementById('partnersContainer');
     
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
+    partnersContainer.innerHTML = partners.map(partner => `
+        <img src="assets/partners/${partner}.png" alt="${partner} logo" class="partner-logo">
+    `).join('');
+}
 
-    images.forEach(img => imageObserver.observe(img));
+function showLightbox(src, type) {
+    const lightbox = document.getElementById('kenyaLightbox');
+    const content = document.querySelector('.modal-content');
+    
+    content.innerHTML = type === 'image' 
+        ? `<img src="${src}" alt="Enlarged content">`
+        : `<video controls><source src="${src}" type="video/mp4"></video>`;
+    
+    lightbox.classList.add('active');
+}
+
+// Admin Functions
+function handleRSVP(eventName) {
+    localStorage.setItem('selectedEvent', eventName);
+    window.location.href = 'register.html';
+}
+// Update form handling
+document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('fullName').value,
+        id: document.getElementById('idNumber').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value
+    };
+
+    if(validateForm(formData)) {
+        try {
+            await sendVerificationEmail(formData.email);
+            showToast('Verification code sent!', 'success');
+        } catch (error) {
+            showToast('Error sending verification', 'error');
+        }
+    }
 });
 
-// Hide loader once the page is fully loaded
-window.addEventListener('load', () => {
-    const loader = document.getElementById('page-loader');
-    if (loader) loader.style.display = 'none';
-});
-
-// Form Submission
-async function handleFormSubmit(form) {
-    const formData = new FormData(form);
-    try {
-        const response = await fetch('https://api.example.com/register', {
-            method: 'POST',
-            body: formData
-        });
-        if (response.ok) {
-            showToast('Registration successful!', 'success');
-        } else {
-            showToast('Registration failed. Please try again.', 'error');
-        }
-    } catch (error) {
-        showToast('An error occurred. Please try again later.', 'error');
-    }
+function validateForm({name, id, email, phone}) {
+    const idRegex = /^[0-9]{8}$/;
+    const phoneRegex = /^\+?254[17]\d{8}$/;
+    
+    return [
+        validateField(name, 'Name is required'),
+        validateField(id, 'Valid ID required', idRegex),
+        validateField(email, 'Valid email required', /^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+        validateField(phone, 'Valid Kenyan number required', phoneRegex)
+    ].every(v => v);
 }
 
-// Enhanced Toast Notification
-function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    
-    requestAnimationFrame(() => {
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    });
-}
-
-// Toast Notification System
-function showToast(message, duration = 3000) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    
-    toast.style.display = 'block';
-    setTimeout(() => {
-        toast.style.display = 'none';
-        toast.remove();
-    }, duration);
-}
-
-// Enhanced Form Validation
-function validateForm(form) {
-    let isValid = true;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    form.querySelectorAll('input').forEach(input => {
-        input.classList.remove('error');
-        if (!input.value.trim()) {
-            showInputError(input, 'This field is required');
-            isValid = false;
-        }
-        if (input.type === 'email' && !emailRegex.test(input.value)) {
-            showInputError(input, 'Invalid email format');
-            isValid = false;
-        }
-    });
+function validateField(value, errorMsg, regex) {
+    const isValid = regex ? regex.test(value) : value.trim() !== '';
+    if(!isValid) showToast(errorMsg, 'error');
     return isValid;
 }
-
-function showInputError(input, message) {
-    const errorElement = input.nextElementSibling || document.createElement('small');
-    errorElement.className = 'error-message';
-    errorElement.textContent = message;
-    input.classList.add('error');
-    input.after(errorElement);
-}
-
-// Updated Dark Mode Toggle
-function toggleDarkMode() {
-    document.documentElement.setAttribute('data-theme',
-        document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-    );
-    localStorage.setItem('theme', document.documentElement.getAttribute('data-theme'));
-}
-
-// Initialize dark mode from localStorage
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-
-// Dark Mode Toggle
-const darkModeToggle = document.createElement('button');
-darkModeToggle.id = 'dark-mode-toggle';
-darkModeToggle.innerHTML = '🌙';
-document.body.appendChild(darkModeToggle);
-
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-});
-
-// Initialize dark mode from localStorage
-if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark-mode');
-    darkModeToggle.innerHTML = '☀️';
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("registration-form");
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById("email").value;
-        const verificationCode = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit code
-
-        // Store the code temporarily (could be stored in a database later)
-        localStorage.setItem("verificationCode", verificationCode);
-        localStorage.setItem("pendingEmail", email);
-
-        // Send the email (using a mock API for now)
-        await sendVerificationEmail(email, verificationCode);
-    });
-});
-
-// Simulated Email Sending Function (Replace with backend API)
-async function sendVerificationEmail(email, code) {
-    alert(`Verification code sent to ${email}: ${code}`);
-    
-    // Show verification prompt
-    setTimeout(() => {
-        let userCode = prompt("Enter the 6-digit verification code sent to your email:");
-        validateVerificationCode(userCode);
-    }, 1000);
-}
-
-// Validate the verification code
-function validateVerificationCode(userCode) {
-    let storedCode = localStorage.getItem("verificationCode");
-    let pendingEmail = localStorage.getItem("pendingEmail");
-
-    if (userCode == storedCode) {
-        saveMemberData(pendingEmail);
-        alert("Email verified! Registration successful.");
-        localStorage.removeItem("verificationCode");
-        localStorage.removeItem("pendingEmail");
-    } else {
-        alert("Invalid verification code. Please try again.");
+// Add touch events for mobile
+let touchStartX = 0;
+document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+    if(Math.abs(e.changedTouches[0].clientX - touchStartX) > 50) {
+        document.querySelector('.nav-menu').classList.remove('active');
     }
-}
-
-// Save user data after verification (local JSON storage)
-function saveMemberData(email) {
-    let members = JSON.parse(localStorage.getItem("members")) || [];
-    members.push({ email });
-    localStorage.setItem("members", JSON.stringify(members));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.getElementById("menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    menuToggle.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
-    });
-});
-
-// Highlight active nav link on scroll
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    let current = '';
-
-    sections.forEach(sec => {
-        const top = window.scrollY;
-        const offset = sec.offsetTop - 150;
-        const height = sec.offsetHeight;
-        if (top >= offset && top < offset + height) {
-            current = sec.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active-link');
-        if (link.getAttribute('href').includes(current)) {
-            link.classList.add('active-link');
-        }
-    });
-});
-
-// Simple Lightbox Initialization (no external library used)
-document.querySelectorAll('.lightbox').forEach(el => {
-    el.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Lightbox placeholder: open media in a modal here.');
-    });
-});
-
-// Toggle “header-fade” based on scroll position
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.classList.add('header-fade');
-    } else {
-        header.classList.remove('header-fade');
-    }
-});
-
-// Track scroll direction and toggle “header-hidden”
-let lastScrollTop = 0;
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScroll > lastScrollTop) {
-        header.classList.add('header-hidden');
-    } else {
-        header.classList.remove('header-hidden');
-    }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });

@@ -1,43 +1,56 @@
-<!--admin.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Ajira Club</title>
+    <title>Admin Panel - Ajira Club</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="admin.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><a href="index.html">Ajira Club</a></div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="admin.html">Admin</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Update navigation in all pages -->
+<header class="kenyan-nav">
+    <nav>
+        <div class="logo-container">
+            <img src="assets/ajira-logo.png" alt="Ajira Logo" class="pulse-logo">
+            <span class="logo-text">Ajira Digital Club</span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="#training" class="nav-link">Training</a></li>
+            <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li><a href="blog.html" class="nav-link">Blog</a></li>
+            <li><a href="register.html" class="cta-button">Join Now</a></li>
+        </ul>
 
-    <section class="admin">
-        <h2>Admin Dashboard</h2>
+        <div class="hamburger-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
 
-        <h3>Manage Notices</h3>
-        <textarea id="notice-text" placeholder="Enter notice"></textarea>
-        <button onclick="addNotice()">Add Notice</button>
-        <ul id="notice-list"></ul>
+    <main class="admin-main">
+        <section class="admin-section">
+            <h2>Manage Notices</h2>
+            <div class="admin-card">
+                <textarea id="notice-text" placeholder="Enter new notice..."></textarea>
+                <button onclick="addNotice()" class="cta-button">Add Notice</button>
+                <ul id="notice-list"></ul>
+            </div>
+        </section>
 
-        <h3>Manage Events</h3>
-        <input type="text" id="event-name" placeholder="Event Name">
-        <input type="date" id="event-date">
-        <button onclick="addEvent()">Add Event</button>
-        <ul id="event-list"></ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Ajira Club</p>
-    </footer>
+        <section class="admin-section">
+            <h2>Manage Events</h2>
+            <div class="admin-card">
+                <input type="text" id="event-name" placeholder="Event Name">
+                <input type="date" id="event-date">
+                <button onclick="addEvent()" class="cta-button">Add Event</button>
+                <ul id="event-list"></ul>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

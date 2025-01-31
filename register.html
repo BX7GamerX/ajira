@@ -1,4 +1,3 @@
-<!--register.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,40 +8,58 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Navigation header will be similar to index.html -->
-    
-    <div class="container glow-form-container">
-        <div class="card registration-form">
-            <h2>Register for Ajira Club</h2>
-            <form id="registration-form" onsubmit="return validateForm(this)">
+    <!-- Update navigation in all pages -->
+<header class="kenyan-nav">
+    <nav>
+        <div class="logo-container">
+            <img src="assets/ajira-logo.png" alt="Ajira Logo" class="pulse-logo">
+            <span class="logo-text">Ajira Digital Club</span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="#training" class="nav-link">Training</a></li>
+            <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li><a href="blog.html" class="nav-link">Blog</a></li>
+            <li><a href="register.html" class="cta-button">Join Now</a></li>
+        </ul>
+
+        <div class="hamburger-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+
+    <main class="registration-main">
+        <div class="glow-form-container">
+            <form id="registrationForm" class="registration-form">
+                <h2>Join Ajira Club</h2>
+                
                 <div class="form-group">
                     <label for="fullName">Full Names</label>
-                    <input type="text" id="fullName" name="fullName" class="form-control glow-input" required>
+                    <input type="text" id="fullName" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="idNumber">ID Number</label>
-                    <input type="text" id="idNumber" name="idNumber" class="form-control glow-input" required>
+                    <input type="text" id="idNumber" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control glow-input" required>
+                    <input type="email" id="email" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="form-control glow-input" required>
+                    <input type="tel" id="phone" required>
                 </div>
-                
-                <div class="form-group">
-                    <label for="institution">Institution</label>
-                    <input type="text" id="institution" name="institution" class="form-control" required>
-                </div>
-                
-                <button type="submit" class="btn btn-glow">Register</button>
+
+                <button type="submit" class="cta-button">Complete Registration</button>
             </form>
         </div>
-    </div>
+    </main>
 </body>
 </html>
