@@ -45,6 +45,7 @@
     <main>
         <!-- Hero Content -->
         <section class="hero-content">
+            <p class="intro-text">Empowering Kenyan Youth Through Digital Skills</p>
             <h1 class="animated-heading">
                 <span class="text-green">Empowering</span> 
                 <span class="text-red">Kenyan Youth</span> 
@@ -65,7 +66,14 @@
         <!-- Event Calendar -->
         <section id="events" class="section events-section">
             <h2 class="section-heading"><span>Upcoming Events</span></h2>
-            <div class="calendar-grid" id="eventCalendar"></div>
+            <div class="calendar-grid" id="eventCalendar">
+                <!-- Mock event card -->
+                <div class="event-card">
+                    <h3>Mock Tech Summit</h3>
+                    <p>📅 January 10, 2025</p>
+                    <button class="rsvp-btn" onclick="handleRSVP('Mock Tech Summit')">RSVP Now</button>
+                </div>
+            </div>
         </section>
 
         <!-- Training Programs -->
@@ -84,9 +92,14 @@
             <h2 class="section-heading"><span>Success Stories</span></h2>
             <div class="testimonial-carousel">
                 <div class="testimonial-card">
-                    <img src="assets/testimonials/user1.jpg" alt="Jane Muthoni">
+                    <img src="assets/images/user1.jpeg" alt="Jane Muthoni">
                     <blockquote>"Ajira Club transformed my freelance career!"</blockquote>
                     <cite>- Full Stack Developer</cite>
+                </div>
+                <div class="testimonial-card">
+                    <img src="assets/images/user1.jpeg" alt="David Otieno">
+                    <blockquote>"Thanks to Ajira, I discovered remote opportunities."</blockquote>
+                    <cite>- Web Developer</cite>
                 </div>
             </div>
         </section>

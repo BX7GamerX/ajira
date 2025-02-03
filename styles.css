@@ -155,7 +155,7 @@ body {
 }
 
 .training-card {
-    background: var(--section-bg);
+    background: #DCF0DA; /* slightly darker than var(--section-bg) */
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
@@ -351,3 +351,34 @@ body {
     background: var(--kenya-black);
     color: var(--kenya-white);
 }
+
+/* ...existing code... */
+.event-img {
+    border-radius: 10px;
+    width: 100%;
+    object-fit: cover;
+}
+/* Round corners for training cards */
+.training-card img {
+    border-radius: 10px;
+    width: 100%;
+    object-fit: cover;
+}
+/* ...existing code... */
+.partners-section {
+    text-align: center;
+    background: var(--section-bg);
+    padding: 2rem 0;
+}
+.partner-logo {
+    width: 80px;
+    border-radius: 10px;
+    margin: 0.5rem;
+    object-fit: cover;
+}
+.contact-section {
+    text-align: center;
+    background: #f5faf3;
+    padding: 2rem 0;
+}
+/* ...existing code... */

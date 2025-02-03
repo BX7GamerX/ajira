@@ -37,10 +37,11 @@ function deleteNotice(index) {
 function addEvent() {
     const name = document.getElementById('event-name').value.trim();
     const date = document.getElementById('event-date').value;
+    const image = document.getElementById('event-image').value.trim();
     if (!name || !date) return;
 
     const events = JSON.parse(localStorage.getItem('events')) || [];
-    events.push({ name, date });
+    events.push({ name, date, image });
     localStorage.setItem('events', JSON.stringify(events));
     loadEvents();
 }

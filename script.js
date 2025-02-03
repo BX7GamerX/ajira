@@ -71,6 +71,7 @@ function loadEvents() {
     
     calendarGrid.innerHTML = events.map(event => `
         <div class="event-card">
+            ${event.image ? `<img src="${event.image}" alt="${event.name} image" class="event-img">` : ''}
             <h3>${event.name}</h3>
             <p>📅 ${new Date(event.date).toLocaleDateString()}</p>
             <button class="rsvp-btn" onclick="handleRSVP('${event.name}')">
@@ -80,47 +81,52 @@ function loadEvents() {
     `).join('');
 }
 
-// Update training cards to use images & link
+// Adjust loadTraining to reduce lag
 function loadTraining() {
-    const trainingContainer = document.getElementById('trainingContainer');
-    const trainingData = [
-        {
-            title: 'Freelancing',
-            image: 'assets/training/freelancing.jpg',
-            link: 'freelancing.html'
-        },
-        {
-            title: 'Digital Marketing',
-            image: 'assets/training/marketing.jpg',
-            link: 'marketing.html'
-        },
-        {
-            title: 'Content Writing',
-            image: 'assets/training/content-writing.jpg',
-            link: 'content-writing.html'
-        },
-        {
-            title: 'Data Management',
-            image: 'assets/training/data-management.jpg',
-            link: 'data-management.html'
-        }
-    ];
+    setTimeout(() => {
+        const trainingContainer = document.getElementById('trainingContainer');
+        const trainingData = [
+            {
+                title: 'Freelancing',
+                image: 'assets/images/austin-distel-wD1LRb9OeEo-unsplash.jpg',
+                link: 'freelancing.html'
+            },
+            {
+                title: 'Digital Marketing',
+                image: 'assets/images/nick-morrison-FHnnjk1Yj7Y-unsplash.jpg',
+                link: 'marketing.html'
+            },
+            {
+                title: 'Content Writing',
+                image: 'assets/images/nikolay-_qOf3MkCrhk-unsplash.jpg',
+                link: 'content-writing.html'
+            },
+            {
+                title: 'Data Management',
+                image: 'assets/images/carlos-muza-hpjSkU2UYSU-unsplash.jpg',
+                link: 'data-management.html'
+            }
+        ];
 
-    trainingContainer.innerHTML = trainingData.map(item => `
-        <a href="${item.link}" class="training-card">
-            <img src="${item.image}" alt="${item.title}">
-            <h3>${item.title}</h3>
-            <p>Master the skills for online ${item.title.toLowerCase()} work</p>
-        </a>
-    `).join('');
+        trainingContainer.innerHTML = trainingData.map(item => `
+            <a href="${item.link}" class="training-card">
+                <img src="${item.image}" alt="${item.title}">
+                <h3>${item.title}</h3>
+                <p>Master the skills for online ${item.title.toLowerCase()} work</p>
+            </a>
+        `).join('');
+    }, 200);
 }
 
 function loadPartners() {
-    const partners = ['mastercard', 'emobilis', 'kepsa'];
+    const partners = [
+        "https://images.app.goo.gl/7ezJBk33T8XA9Ps57",
+        "https://cdn.asp.events/CLIENT_EnergyNe_9A2AD9E1_052D_C466_21FA5F6F01D93263/sites/YES-2023/media/libraries/partners/Kepsa-logo.jpg/fit-in/700x9999/filters:no_upscale()",
+        "https://media.licdn.com/dms/image/v2/C4D0BAQHalWFwMBOf0A/company-logo_200_200/company-logo_200_200/0/1668155621400/emobilis_logo?e=2147483647&v=beta&t=myeWEZjo5pewRIcxFuunM82SLVRLCjPn2UlU1bbsF9k"
+    ];
     const partnersContainer = document.getElementById('partnersContainer');
-    
-    partnersContainer.innerHTML = partners.map(partner => `
-        <img src="assets/partners/${partner}.png" alt="${partner} logo" class="partner-logo">
+    partnersContainer.innerHTML = partners.map(url => `
+        <img src="${url}" alt="Partner logo" class="partner-logo">
     `).join('');
 }
 
