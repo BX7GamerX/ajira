@@ -45,7 +45,6 @@
     <main>
         <!-- Hero Content -->
         <section class="hero-content">
-            <p class="intro-text">Empowering Kenyan Youth Through Digital Skills</p>
             <h1 class="animated-heading">
                 <span class="text-green">Empowering</span> 
                 <span class="text-red">Kenyan Youth</span> 
@@ -66,20 +65,46 @@
         <!-- Event Calendar -->
         <section id="events" class="section events-section">
             <h2 class="section-heading"><span>Upcoming Events</span></h2>
-            <div class="calendar-grid" id="eventCalendar">
-                <!-- Mock event card -->
-                <div class="event-card">
-                    <h3>Mock Tech Summit</h3>
-                    <p>📅 January 10, 2025</p>
-                    <button class="rsvp-btn" onclick="handleRSVP('Mock Tech Summit')">RSVP Now</button>
-                </div>
-            </div>
+            <div class="calendar-grid" id="eventCalendar"></div>
         </section>
 
         <!-- Training Programs -->
         <section id="training" class="section training-section">
             <h2 class="section-heading"><span>Our Training Programs</span></h2>
-            <div class="training-cards" id="trainingContainer"></div>
+            <div class="training-cards" id="trainingContainer">
+                <!-- Program Card 1 -->
+                <div class="program-card">
+                    <img src="assets/images/austin-distel-wD1LRb9OeEo-unsplash.jpg" alt="Freelancing" loading="lazy" class="program-image">
+                    <div class="program-content">
+                        <h3>Freelancing</h3>
+                        <p>Master online freelancing skills</p>
+                    </div>
+                </div>
+                <!-- Program Card 2 -->
+                <div class="program-card">
+                    <img src="assets/images/nick-morrison-FHnnjk1Yj7Y-unsplash.jpg" alt="Digital Marketing" loading="lazy" class="program-image">
+                    <div class="program-content">
+                        <h3>Digital Marketing</h3>
+                        <p>Learn modern marketing strategies</p>
+                    </div>
+                </div>
+                <!-- Program Card 3 -->
+                <div class="program-card">
+                    <img src="assets/images/carlos-muza-hpjSkU2UYSU-unsplash.jpg" alt="Content Writing" loading="lazy" class="program-image">
+                    <div class="program-content">
+                        <h3>Content Writing</h3>
+                        <p>Develop professional writing skills</p>
+                    </div>
+                </div>
+                <!-- Program Card 4 -->
+                <div class="program-card">
+                    <img src="assets/images/nikolay-_qOf3MkCrhk-unsplash.jpg" alt="Data Management" loading="lazy" class="program-image">
+                    <div class="program-content">
+                        <h3>Data Management</h3>
+                        <p>Excel in data handling</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- FAQ Section -->
@@ -88,29 +113,24 @@
                 <!-- FAQ content loaded dynamically -->
             </div>
         </section>
-        <section id="testimonials" class="section kenyan-testimonials">
+        <section id="testimonials" class="section kenyan-testimonials" style="background-color: #e0ffe0;">
             <h2 class="section-heading"><span>Success Stories</span></h2>
             <div class="testimonial-carousel">
                 <div class="testimonial-card">
-                    <img src="assets/images/user1.jpeg" alt="Jane Muthoni">
+                    <img src="assets/images/user1.jpeg" alt="Jane Muthoni" loading="lazy">
                     <blockquote>"Ajira Club transformed my freelance career!"</blockquote>
                     <cite>- Full Stack Developer</cite>
-                </div>
-                <div class="testimonial-card">
-                    <img src="assets/images/user1.jpeg" alt="David Otieno">
-                    <blockquote>"Thanks to Ajira, I discovered remote opportunities."</blockquote>
-                    <cite>- Web Developer</cite>
                 </div>
             </div>
         </section>
         <!-- Partners -->
-        <section class="partners-section">
+        <section class="partners-section" style="text-align: center;">
             <h2 class="section-heading"><span>Our Partners</span></h2>
             <div class="partner-carousel" id="partnersContainer"></div>
         </section>
 
         <!-- Contact -->
-        <section id="contact" class="section contact-section">
+        <section id="contact" class="section contact-section" style="text-align: center;">
             <h2 class="section-heading"><span>Contact Us</span></h2>
             <div class="contact-grid">
                 <div class="contact-info">

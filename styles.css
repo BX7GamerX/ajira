@@ -152,10 +152,16 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     padding: 2rem;
+    background: linear-gradient(135deg, rgba(0,123,61,0.05), rgba(222,41,16,0.05));
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+.training-cards:hover {
+    background: linear-gradient(135deg, rgba(0,123,61,0.1), rgba(222,41,16,0.1));
 }
 
 .training-card {
-    background: #DCF0DA; /* slightly darker than var(--section-bg) */
+    background: var(--section-bg);
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
@@ -178,6 +184,47 @@ body {
 
 .training-card:hover::after {
     transform: scaleX(1);
+}
+
+.training-card img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+}
+
+.program-card {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(135deg, rgba(0,123,61,0.1), rgba(222,41,16,0.1));
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.program-card .program-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.program-card .program-content {
+    padding: 1rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.program-card h3 {
+    color: var(--kenya-green);
+    margin-bottom: 0.5rem;
+}
+
+.program-card p {
+    font-size: 0.9rem;
+    color: var(--kenya-black);
 }
 
 /* Mobile Styles */
@@ -351,34 +398,3 @@ body {
     background: var(--kenya-black);
     color: var(--kenya-white);
 }
-
-/* ...existing code... */
-.event-img {
-    border-radius: 10px;
-    width: 100%;
-    object-fit: cover;
-}
-/* Round corners for training cards */
-.training-card img {
-    border-radius: 10px;
-    width: 100%;
-    object-fit: cover;
-}
-/* ...existing code... */
-.partners-section {
-    text-align: center;
-    background: var(--section-bg);
-    padding: 2rem 0;
-}
-.partner-logo {
-    width: 80px;
-    border-radius: 10px;
-    margin: 0.5rem;
-    object-fit: cover;
-}
-.contact-section {
-    text-align: center;
-    background: #f5faf3;
-    padding: 2rem 0;
-}
-/* ...existing code... */
